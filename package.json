@@ -19,6 +19,7 @@
     "@wdio/mocha-framework": "^5.0.3",
     "@wdio/spec-reporter": "^5.0.3",
     "@wdio/sync": "^5.0.3",
+    "chai": "^4.2.0",
     "wdio-cli": "^5.0.0-alpha.7",
     "webdriverio": "^5.0.3"
   }
