@@ -2,8 +2,12 @@ import { expect } from 'chai';
 
 describe('Test login', ()=> {
     beforeEach(() =>{
-        browser.url('https://loyalty.pinbonus.com');
+        browser.url('/');
     })
+
+    // afterEach(() => {
+    //     browser.close;
+    // }) 
 
     it('should have recapcha alert', () => {
         $('[data-target="#qiwiAuthPopup"]').click();
@@ -14,7 +18,7 @@ describe('Test login', ()=> {
         expect(recapchaAlert).to.equal('Подтвердите, что вы не робот');
     });
 
-    it('should have alerts for blank fields', ()=>{
+    xit('should have alerts for blank fields', ()=>{
         $('[data-target="#qiwiAuthPopup"]').click();
         $('#qiwiAuthPopupSubmit').click();
         const emailError = $('#email_address-error').getText();
@@ -23,7 +27,7 @@ describe('Test login', ()=> {
         expect(passwordError).to.equal('Необходимо ввести пароль.');
     });
 
-    it('should have alert for incorrect email', ()=>{
+    xit('should have alert for incorrect email', ()=>{
         $('[data-target="#qiwiAuthPopup"]').click();
         $('#qiwiAuthPopupSubmit').click();
         $('#email_address').addValue('test');
@@ -33,7 +37,7 @@ describe('Test login', ()=> {
         expect(passwordError).to.equal('Необходимо ввести пароль.');
     });
 
-    it('should have alert for simple password', ()=>{
+    xit('should have alert for simple password', ()=>{
         $('[data-target="#qiwiAuthPopup"]').click();
         $('#password').addValue('12345');
         $('#qiwiAuthPopupSubmit').click();
