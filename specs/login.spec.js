@@ -1,49 +1,53 @@
-import { expect } from 'chai'; 
+import { expect } from 'chai';
+import LoginPage from '../pageobjects/login.page'
+import HeaderPage from '../pageobjects/header.page'
 
 describe('Test login', ()=> {
+    
     beforeEach(() =>{
         browser.url('/');
     })
 
-    // afterEach(() => {
-    //     browser.close;
-    // }) 
+    xit('should have recapcha alert', () => {
+        HeaderPage.loginBtn.click();
+        LoginPage.login("piractvo@gmail.com", "123456");
+        expect(LoginPage.recapchaAlert.getText()).to.equal('Подтвердите, что вы не робот');
+    });
 
-    it('should have recapcha alert', () => {
-        $('[data-target="#qiwiAuthPopup"]').click();
-        $('#email_address').addValue('piractvo@gmail.com');
-        $('#password').addValue('12345678');
-        $('#qiwiAuthPopupSubmit').click();
-        const recapchaAlert = $('.modal_form-field-recapcha.has-error .modal_form-field_error').getText();
-        expect(recapchaAlert).to.equal('Подтвердите, что вы не робот');
+    xit('should be successful authorization and logout', () => {
+        HeaderPage.loginBtn.click();
+        LoginPage.login("piractvo@gmail.com", "Pa$$w0rd!");
+        expect(HeaderPage.userAccountName.getText()).to.equal('piractvo@gmail.com');
+        HeaderPage.logOutBtn.click();
+        browser.pause(5000);
+        HeaderPage.loginBtn.isDisplayed();
+    });
+
+    it('should have alerts for in', () => {
+        HeaderPage.loginBtn.click();
+        LoginPage.login('piractvo@gm.com', '123456');
+        browser.pause(10000);
+        expect(LoginPage.emailAlert.getText()).to.equal('Такой пользователь не найден - зарегистрируйтесь!');
     });
 
     xit('should have alerts for blank fields', ()=>{
-        $('[data-target="#qiwiAuthPopup"]').click();
-        $('#qiwiAuthPopupSubmit').click();
-        const emailError = $('#email_address-error').getText();
-        const passwordError = $('#password-error').getText();
-        expect(emailError).to.equal('Необходимо ввести адрес электронной почты.');
-        expect(passwordError).to.equal('Необходимо ввести пароль.');
+        HeaderPage.loginBtn.click();
+        LoginPage.login("", "");
+        expect(LoginPage.emailAlert.getText()).to.equal('Необходимо ввести адрес электронной почты.');
+        expect(LoginPage.passwordAlert.getText()).to.equal('Необходимо ввести пароль.');
     });
 
     xit('should have alert for incorrect email', ()=>{
-        $('[data-target="#qiwiAuthPopup"]').click();
-        $('#qiwiAuthPopupSubmit').click();
-        $('#email_address').addValue('test');
-        const emailError = $('#email_address-error').getText();
-        const passwordError = $('#password-error').getText();
-        expect(emailError).to.equal('Неверный адрес эл. почты');
-        expect(passwordError).to.equal('Необходимо ввести пароль.');
+        HeaderPage.loginBtn.click();
+        LoginPage.login("test", "");
+        expect(LoginPage.emailAlert.getText()).to.equal('Неверный адрес эл. почты');
+        expect(LoginPage.passwordAlert.getText()).to.equal('Необходимо ввести пароль.');
     });
 
     xit('should have alert for simple password', ()=>{
-        $('[data-target="#qiwiAuthPopup"]').click();
-        $('#password').addValue('12345');
-        $('#qiwiAuthPopupSubmit').click();
-        const emailError = $('#email_address-error').getText();
-        const passwordError = $('#password-error').getText();
-        expect(emailError).to.equal('Необходимо ввести адрес электронной почты.');
-        expect(passwordError).to.equal('Минимальная длина пароля составляет 6 символов.');
+        HeaderPage.loginBtn.click();
+        LoginPage.login('', '12345');
+        expect(LoginPage.emailAlert.getText()).to.equal('Необходимо ввести адрес электронной почты.');
+        expect(LoginPage.passwordAlert.getText()).to.equal('Минимальная длина пароля составляет 6 символов.');
     });
 });
