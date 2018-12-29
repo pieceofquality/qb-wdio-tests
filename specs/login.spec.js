@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import LoginPage from '../pageobjects/login.page'
 import HeaderPage from '../pageobjects/header.page'
 
@@ -26,7 +25,7 @@ describe('Test login', ()=> {
     it('should have alerts for in', () => {
         HeaderPage.loginBtn.click();
         LoginPage.login('piractvo@gm.com', '123456');
-        browser.pause(10000);
+        // browser.pause(10000);
         expect(LoginPage.emailAlert.getText()).to.equal('Такой пользователь не найден - зарегистрируйтесь!');
     });
 
