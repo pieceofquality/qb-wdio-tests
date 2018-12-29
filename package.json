@@ -1,12 +1,14 @@
 {
   "name": "qb-wdio-tests",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "WebdriverIO tests",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/wdio wdio.conf.js"
+    "test": "wdio"
   },
-  "keywords": [],
+  "keywords": [
+    "webdriverio"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -20,7 +22,6 @@
     "@wdio/spec-reporter": "^5.0.3",
     "@wdio/sync": "^5.0.3",
     "chai": "^4.2.0",
-    "wdio-cli": "^5.0.0-alpha.7",
     "webdriverio": "^5.0.3"
   }
 }
